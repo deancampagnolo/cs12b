@@ -9,11 +9,19 @@ This file contains the code to reverse files
 #include <string.h> /*lib with strlen*/
 
 void stringReverse(char* s){
-	
+
 
 }
-
-int main(int argc, char* argv[]){
+main(int argc, char* argv[]){
+	File* in;//declares file input
+	File* out;//declares file output
+	char word[256]; //to store words from the input file
+	
+	in = fopen(argv[1], "r");
+	
+	while( fscan(in, "%s", word) !EOF){
+		printf("%s", word);
+	}	
 	printf("Hello World");
 	return EXIT_SUCCESS;
 }
