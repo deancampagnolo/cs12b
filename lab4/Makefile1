@@ -3,10 +3,10 @@
 #------------------------------------------------------------------------------
 
 ADT_NAME  = Blockchain
-SOURCES   = $(ADT_NAME).c $(ADT_NAME)Test.c
-OBJECTS   = $(ADT_NAME).o $(ADT_NAME)Test.o
+SOURCES   = $(ADT_NAME).c $(ADT_NAME)Client.c
+OBJECTS   = $(ADT_NAME).o $(ADT_NAME)Client.o
 HEADERS   = $(ADT_NAME).h
-EXEBIN    = $(ADT_NAME)Test
+EXEBIN    = $(ADT_NAME)Client
 FLAGS     = -std=c99 -Wall
 
 all: $(EXEBIN)
