@@ -4,17 +4,16 @@
 #include<assert.h>
 #include"Blockchain.h"
 #include"Block.c"
-#define ARRAYSIZE = 100
+#define ARRAYSIZE 100
 typedef struct BlockchainObj{
 	int BcSize;//Blockchain size
-	Block* theChain[ARRAYSIZE]
+	Block* theChain[ARRAYSIZE];
 } BlockchainObj;
 
 Blockchain newBlockchain(){
 	Blockchain B = malloc(sizeof(BlockchainObj));
 	assert(B!=NULL);
 	B->BcSize = 0;
-	theChain = new
 	
 }
 
@@ -25,27 +24,27 @@ void freeBlockchain(Blockchain* pB){
 int append(Blockchain B, char* data){
 	Block *theBlock = malloc(sizeof(Block));
 	long theBlocksHash;
-	int BlockchainSize
-	if(B->BcSize == 0){
+	if(size(B) == 0){
 		theBlocksHash = 0;
 	} else {
-		B-> --BcSize;//so that we can get previous block's Hash Value
-		theBlocksHash = get(B,BcSize)->hash;//Not sure if this works, or if we will have to make a new reference to a new Block.
+		printf("we got here bois");
+		theBlocksHash = 1;
+		hash(get(B,size(B)-1));
+		//theBlocksHash = hash(get(B,size(B)-1));//Not sure if this works, or if we will have to make a new reference to a new Block.
+		printf("%ld",theBlocksHash);
 		
-		B-> ++BcSize; //to not screw with the actual size
 	}
-        theBlock = newBlock(data,BcSize,theBlocksHash);
-        printBlock(stdout,theBlock);	
+        B->theChain[size(B)] = newBlock(data,size(B),theBlocksHash);
 	
-	BcSize ++;
+	B->BcSize = size(B)+1;
 }
 
 int size(Blockchain B){
-
+	return B->BcSize;
 }
 
 Block get(Blockchain B, int idx){
-
+	return B->theChain[idx];
 }
 
 int valid(Blockchain B){
@@ -57,5 +56,8 @@ void removeLast(Blockchain B){
 }
 
 void printBlockchain(FILE* out, Blockchain B){
-
+	for(int i = 0; i<size(B); i++){
+		//fprintf(out,"%s",B->theChain[i]->);
+		printBlock(out, B->theChain[i]);
+	}
 }

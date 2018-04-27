@@ -18,7 +18,7 @@ Block newBlock(char* data, int id, long hash){
 	assert(B!=NULL);
 	B->id = id;
 	B->hash = hash;	
-	 
+	B->data = data; 
 }
 
 /*
@@ -39,15 +39,27 @@ long previousHash(Block B){
 	return B->hash;
 }
 
+/*
 long hash(Block B){//construct a new hash value save then return?
-	int sum = 0;
+	int sum = 892;
 	for(int i = 0; i<strlen(data); i++){
-		sum += B->data[i];
+		sum += (long)B->data[i];
+		//printf("sum: %d",sum);
 	}
-	return B->hash;
+	return (long)sum;
 }
+*/
+long hash(Block B){//construct a new hash value save then return?
+          int sum = 0;
+	char* k;
+	k = data(B);
+          for(int i = 0; i<strlen(k); i++){
+                sum += k[i];
+                  //printf("sum: %d",sum);
+          }
+          return (long)sum;
+  }
 
 void printBlock(FILE* out, Block B){
-	fprintf(out,"%s","hello world");
-	fprintf(out,"Id:%d\nPreviousHash:%ld",B->id,B->hash);
+	fprintf(out,"Id:%d\nPreviousHash:%ld\n",B->id,B->hash);
 }

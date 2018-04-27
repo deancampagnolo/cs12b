@@ -1,19 +1,29 @@
-//-----------------------------------------------------------------------------
-// BlockchainClient.c
-// Test client for Blockchain ADT
-//-----------------------------------------------------------------------------
 
 #include<stdio.h>
 #include<stdlib.h>
 #include "Blockchain.h"
+//#include "Block.c"
 
 int main(int argc, char* argv[]){
-	char* str = "D33N";
-	int id = 23;
-	int hash = 4;
+	/*	
+	char* str = "dean";
+	int id = 0;
+	int khash = 0;
 	Block *BB = malloc(sizeof(Block));
-	BB = newBlock(str,id,hash);
+	BB = newBlock(str,id,khash);
 	printBlock(stdout,BB);
+	
+	printf("%ld",hash(BB));
+*/
+	//long k = hash(BB);
+	//printf("%ld", k);
+	
+	Blockchain *Blocky = malloc(sizeof(Blockchain));
+	Blocky = newBlockchain();
+	append(Blocky, "hello");
+	append(Blocky, "bingbong");
+	printBlockchain(stdout,Blocky);
+
   // I want the first block's data to be modifiable so use an array.
   // char* string literals are stored in immutable memory
 /*
