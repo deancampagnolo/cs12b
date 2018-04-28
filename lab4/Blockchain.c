@@ -16,12 +16,15 @@ Blockchain newBlockchain(){
 	B->BcSize = 0;
 	
 }
-/*
 void freeBlockchain(Blockchain* pB){
-
+	if(pB != NULL && *pB != NULL){
+		free(*pB);
+		*pB = NULL;
+	}
 }
-*/
+
 int append(Blockchain B, char* data){
+   if(valid(B) == 1){
 	Block *theBlock = malloc(sizeof(Block));
 	long theBlocksHash;
 	if(size(B) == 0){
@@ -34,6 +37,10 @@ int append(Blockchain B, char* data){
         B->theChain[size(B)] = newBlock(data,size(B),theBlocksHash);
 	
 	B->BcSize = size(B)+1;
+	return size(B);
+   } else{
+      	return 0;
+   }
 }
 
 int size(Blockchain B){
@@ -46,6 +53,9 @@ Block get(Blockchain B, int idx){
 
 int valid(Blockchain B){
 	//Block* C = B->theChain;
+	if(size(B) <=1){
+		return 1; //Since there is nothing to validate
+	}
 	for(int i = size(B)-1; i>0;i--){
 		if(previousHash(get(B, i)) != hash(get(B,i-1))){
 			return 0;

@@ -21,15 +21,12 @@ Block newBlock(char* data, int id, long hash){
 	B->data = data; 
 }
 
-/*
 void freeBlock(Block* pB){
 	if( pB!=NULL && *pB!=NULL){
-		
-
+		free(*pB);
+		*pB = NULL;		
 	}
-
 }
-*/
 
 char* data(Block B){
 	return B->data;
@@ -38,19 +35,8 @@ char* data(Block B){
 long previousHash(Block B){
 	return B->hash;
 }
-
-/*
-long hash(Block B){//construct a new hash value save then return?
-	int sum = 892;
-	for(int i = 0; i<strlen(data); i++){
-		sum += (long)B->data[i];
-		//printf("sum: %d",sum);
-	}
-	return (long)sum;
-}
-*/
-long hash(Block B){//construct a new hash value save then return?
-          long sum = 0;
+long hash(Block B){
+	long sum = 0;
 	char* k;
 	k = data(B);
           for(int i = 0; i<strlen(k); i++){
