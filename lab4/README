@@ -4,6 +4,10 @@ Block.c
 Blockchain.c
 BlockchainClient.c
 BlockchainTest.c
+Block.h
+Blockchain.h
 Makefile
+Makefile2
 README
 log.txt
+

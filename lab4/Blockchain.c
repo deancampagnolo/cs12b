@@ -27,7 +27,7 @@ Blockchain newBlockchain(){
 }
 void freeBlockchain(Blockchain* pB){
 	if(pB != NULL && *pB != NULL){
-		while(size(*pB)>0){
+		while(size(*pB)>0){//While there are still Blocks
 			removeLast(*pB);	
 		}
 		free(*pB);
@@ -37,15 +37,13 @@ void freeBlockchain(Blockchain* pB){
 
 int append(Blockchain B, char* data){
    if(valid(B) == 1){
-//	Block *theBlock = malloc(sizeof(Block));
 	long theBlocksHash;
 	if(size(B) == 0){
 		theBlocksHash = 0;
 	} else {
-		theBlocksHash = hash(get(B,size(B)-1));
-		//theBlocksHash = hash(get(B,size(B)-1));//Not sure if this works, or if we will have to make a new reference to a new Block.
-		
+		theBlocksHash = hash(get(B,size(B)-1));//hash of previous block
 	}
+
         B->theChain[size(B)] = newBlock(data,size(B),theBlocksHash);
 	
 	B->BcSize = size(B)+1;

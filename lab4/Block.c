@@ -46,13 +46,12 @@ char* data(Block B){
 long previousHash(Block B){
 	return B->hash;
 }
-long hash(Block B){
+long hash(Block B){//data + id + hash
 	long sum = 0;
 	char* k;
 	k = data(B);
           for(int i = 0; i<strlen(k); i++){
                 sum += k[i];
-                  //printf("sum: %d",sum);
           }
 	sum = sum + B->id + previousHash(B);
           return sum;
