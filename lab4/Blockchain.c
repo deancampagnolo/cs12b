@@ -16,22 +16,19 @@ Blockchain newBlockchain(){
 	B->BcSize = 0;
 	
 }
-
+/*
 void freeBlockchain(Blockchain* pB){
 
 }
-
+*/
 int append(Blockchain B, char* data){
 	Block *theBlock = malloc(sizeof(Block));
 	long theBlocksHash;
 	if(size(B) == 0){
 		theBlocksHash = 0;
 	} else {
-		printf("we got here bois");
-		theBlocksHash = 1;
-		hash(get(B,size(B)-1));
+		theBlocksHash = hash(get(B,size(B)-1));
 		//theBlocksHash = hash(get(B,size(B)-1));//Not sure if this works, or if we will have to make a new reference to a new Block.
-		printf("%ld",theBlocksHash);
 		
 	}
         B->theChain[size(B)] = newBlock(data,size(B),theBlocksHash);
@@ -48,11 +45,17 @@ Block get(Blockchain B, int idx){
 }
 
 int valid(Blockchain B){
-
+	Block* C = B->theChain;
+	for(int i = size(B)-1; i>0;i++){
+		if(previousHash(B) != hash(B)){
+			return 0;
+		}
+	}
+	return 1;
 }
 
 void removeLast(Blockchain B){
-
+	B->BcSize = size(B) - 1;
 }
 
 void printBlockchain(FILE* out, Blockchain B){

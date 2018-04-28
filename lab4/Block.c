@@ -50,14 +50,15 @@ long hash(Block B){//construct a new hash value save then return?
 }
 */
 long hash(Block B){//construct a new hash value save then return?
-          int sum = 0;
+          long sum = 0;
 	char* k;
 	k = data(B);
           for(int i = 0; i<strlen(k); i++){
                 sum += k[i];
                   //printf("sum: %d",sum);
           }
-          return (long)sum;
+	sum = sum + B->id + previousHash(B);
+          return sum;
   }
 
 void printBlock(FILE* out, Block B){

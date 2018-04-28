@@ -22,6 +22,7 @@ int main(int argc, char* argv[]){
 	Blocky = newBlockchain();
 	append(Blocky, "hello");
 	append(Blocky, "bingbong");
+	append(Blocky, "hehexd");
 	printBlockchain(stdout,Blocky);
 
   // I want the first block's data to be modifiable so use an array.
