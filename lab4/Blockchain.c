@@ -45,9 +45,9 @@ Block get(Blockchain B, int idx){
 }
 
 int valid(Blockchain B){
-	Block* C = B->theChain;
-	for(int i = size(B)-1; i>0;i++){
-		if(previousHash(B) != hash(B)){
+	//Block* C = B->theChain;
+	for(int i = size(B)-1; i>0;i--){
+		if(previousHash(get(B, i)) != hash(get(B,i-1))){
 			return 0;
 		}
 	}

@@ -9,12 +9,6 @@
 
 int main(int argc, char* argv[]){
   Blockchain chain = newBlockchain();
-	char* str = "D33N";
-	int id = 23;
-	int hash = 4;
-	Block BB = malloc(sizeof(Block));
-	BB = newBLock(str,id,hash);
-	BB.hash(BB);
   // I want the first block's data to be modifiable so use an array.
   // char* string literals are stored in immutable memory
   char hackable[] = "one";
@@ -26,7 +20,7 @@ int main(int argc, char* argv[]){
   for (int i = 0; i < size(chain); i++) {
     printBlock(stdout,get(chain, i));
   }
-  /*removeLast(chain);
+  removeLast(chain);
   printBlockchain(stdout, chain);
 
   // now break the chain
@@ -38,6 +32,5 @@ int main(int argc, char* argv[]){
   printf("%d\n", append(chain, "five"));
 
   freeBlockchain(&chain);
-  */
-return 0;
+  return 0;
 }

@@ -5,7 +5,7 @@
 //#include "Block.c"
 
 int main(int argc, char* argv[]){
-	/*	
+/*		
 	char* str = "dean";
 	int id = 0;
 	int khash = 0;
@@ -13,7 +13,7 @@ int main(int argc, char* argv[]){
 	BB = newBlock(str,id,khash);
 	printBlock(stdout,BB);
 	
-	printf("%ld",hash(BB));
+	printf("%ld",previousHash(BB));
 */
 	//long k = hash(BB);
 	//printf("%ld", k);
@@ -23,6 +23,11 @@ int main(int argc, char* argv[]){
 	append(Blocky, "hello");
 	append(Blocky, "bingbong");
 	append(Blocky, "hehexd");
+	append(Blocky, "");
+	append(Blocky, "juajuajua");
+	printBlockchain(stdout,Blocky);
+	printf("%d",valid(Blocky));
+	removeLast(Blocky);
 	printBlockchain(stdout,Blocky);
 
   // I want the first block's data to be modifiable so use an array.
