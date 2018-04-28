@@ -23,7 +23,7 @@ Blockchain newBlockchain(){
 	Blockchain B = malloc(sizeof(BlockchainObj));
 	assert(B!=NULL);
 	B->BcSize = 0;
-	
+	return(B);	
 }
 void freeBlockchain(Blockchain* pB){
 	if(pB != NULL && *pB != NULL){
@@ -37,7 +37,7 @@ void freeBlockchain(Blockchain* pB){
 
 int append(Blockchain B, char* data){
    if(valid(B) == 1){
-	Block *theBlock = malloc(sizeof(Block));
+//	Block *theBlock = malloc(sizeof(Block));
 	long theBlocksHash;
 	if(size(B) == 0){
 		theBlocksHash = 0;

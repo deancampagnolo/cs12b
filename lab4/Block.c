@@ -29,13 +29,13 @@ Block newBlock(char* data, int id, long hash){
 	B->id = id;
 	B->hash = hash;	
 	B->data = data; 
+	return(B);
 }
 
 void freeBlock(Block* pB){
 	if( pB!=NULL && *pB!=NULL){
 		free(*pB);
 		*pB = NULL;		
-		printf("YES");
 	}
 }
 
