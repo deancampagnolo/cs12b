@@ -1,3 +1,11 @@
+#Aaron Swoiskin
+#aswoiski
+#Dean Campagnolo
+#dcampagn
+#
+#Makefile2
+#This file is the make file for my testing script
+
 #------------------------------------------------------------------------------
 # Makefile for any ADT and its test client
 #------------------------------------------------------------------------------

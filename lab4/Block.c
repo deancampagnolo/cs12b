@@ -1,3 +1,13 @@
+/* 
+ * Aaron Swoiskin
+ * aswoiski
+ * Dean Campagnolo
+ * dcampagn
+ *
+ * Block.c
+ * this file contains the class Block and its methods
+ * */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -25,6 +35,7 @@ void freeBlock(Block* pB){
 	if( pB!=NULL && *pB!=NULL){
 		free(*pB);
 		*pB = NULL;		
+		printf("YES");
 	}
 }
 
@@ -48,5 +59,5 @@ long hash(Block B){
   }
 
 void printBlock(FILE* out, Block B){
-	fprintf(out,"Id:%d\nPreviousHash:%ld\n",B->id,B->hash);
+	fprintf(out,"%d:%s\n",B->id,B->data);
 }

@@ -1,3 +1,12 @@
+/* 
+ * Aaron Swoiskin
+ * aswoiski
+ * Dean Campagnolo
+ * dcampagn
+ *
+ * Blockchain.c
+ *This is the file that contains the Blockchain class and its methods
+ * */
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -18,6 +27,9 @@ Blockchain newBlockchain(){
 }
 void freeBlockchain(Blockchain* pB){
 	if(pB != NULL && *pB != NULL){
+		while(size(*pB)>0){
+			removeLast(*pB);	
+		}
 		free(*pB);
 		*pB = NULL;
 	}
@@ -66,6 +78,8 @@ int valid(Blockchain B){
 
 void removeLast(Blockchain B){
 	B->BcSize = size(B) - 1;
+	Block C = get(B,size(B));
+	freeBlock(&C);//removes block at the last index
 }
 
 void printBlockchain(FILE* out, Blockchain B){

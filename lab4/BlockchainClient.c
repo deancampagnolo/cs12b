@@ -1,3 +1,11 @@
+/* 
+ * Aaron Swoiskin
+ * aswoiski
+ * Dean Campagnolo
+ * dcampagn
+ *
+ * */
+
 //-----------------------------------------------------------------------------
 // BlockchainClient.c
 // Test client for Blockchain ADT
