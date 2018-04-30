@@ -1,3 +1,13 @@
+/* 
+ * Aaron Swoiskin
+ * aswoiski
+ * Dean Campagnolo
+ * dcampagn
+ *
+ * Block.c
+ * this file contains the class Block and its methods
+ * */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -19,6 +29,7 @@ Block newBlock(char* data, int id, long hash){
 	B->id = id;
 	B->hash = hash;	
 	B->data = data; 
+	return(B);
 }
 
 void freeBlock(Block* pB){
@@ -35,18 +46,17 @@ char* data(Block B){
 long previousHash(Block B){
 	return B->hash;
 }
-long hash(Block B){
+long hash(Block B){//data + id + hash
 	long sum = 0;
 	char* k;
 	k = data(B);
           for(int i = 0; i<strlen(k); i++){
                 sum += k[i];
-                  //printf("sum: %d",sum);
           }
 	sum = sum + B->id + previousHash(B);
           return sum;
   }
 
 void printBlock(FILE* out, Block B){
-	fprintf(out,"Id:%d\nPreviousHash:%ld\n",B->id,B->hash);
+	fprintf(out,"%d:%s\n",B->id,B->data);
 }

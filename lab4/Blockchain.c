@@ -1,3 +1,12 @@
+/* 
+ * Aaron Swoiskin
+ * aswoiski
+ * Dean Campagnolo
+ * dcampagn
+ *
+ * Blockchain.c
+ *This is the file that contains the Blockchain class and its methods
+ * */
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -14,10 +23,13 @@ Blockchain newBlockchain(){
 	Blockchain B = malloc(sizeof(BlockchainObj));
 	assert(B!=NULL);
 	B->BcSize = 0;
-	
+	return(B);	
 }
 void freeBlockchain(Blockchain* pB){
 	if(pB != NULL && *pB != NULL){
+		while(size(*pB)>0){//While there are still Blocks
+			removeLast(*pB);	
+		}
 		free(*pB);
 		*pB = NULL;
 	}
@@ -25,15 +37,13 @@ void freeBlockchain(Blockchain* pB){
 
 int append(Blockchain B, char* data){
    if(valid(B) == 1){
-	Block *theBlock = malloc(sizeof(Block));
 	long theBlocksHash;
 	if(size(B) == 0){
 		theBlocksHash = 0;
 	} else {
-		theBlocksHash = hash(get(B,size(B)-1));
-		//theBlocksHash = hash(get(B,size(B)-1));//Not sure if this works, or if we will have to make a new reference to a new Block.
-		
+		theBlocksHash = hash(get(B,size(B)-1));//hash of previous block
 	}
+
         B->theChain[size(B)] = newBlock(data,size(B),theBlocksHash);
 	
 	B->BcSize = size(B)+1;
@@ -66,6 +76,8 @@ int valid(Blockchain B){
 
 void removeLast(Blockchain B){
 	B->BcSize = size(B) - 1;
+	Block C = get(B,size(B));
+	freeBlock(&C);//removes block at the last index
 }
 
 void printBlockchain(FILE* out, Blockchain B){
