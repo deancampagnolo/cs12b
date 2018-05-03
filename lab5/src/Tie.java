@@ -9,4 +9,8 @@ class Tie extends SpaceShip{
         weapon  = 20;
     }
 
+    @Override
+    public String toString(){
+        return "Tie fighter";
+    }
 }

@@ -1,8 +1,8 @@
-public class SpaceShip {
+abstract class SpaceShip {
 
-    int shields;
-    int weapon;
-    boolean dead;
+    protected int shields;
+    protected int weapon;
+    protected boolean dead;
 
     public SpaceShip(){
         dead = false;
