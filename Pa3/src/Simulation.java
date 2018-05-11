@@ -31,6 +31,91 @@ public class Simulation{
 //
 //-----------------------------------------------------------------------------
 
+    public static void printContentsOfQ(PrintWriter writer, Queue Q){
+        for(int i = 0; i<Q.length(); i++){
+            writer.print(Q.peek(i)+ " ");
+        }
+    }
+
+    public static void printStatus(int time, PrintWriter writer, Queue Q, Queue actualQueue, Queue finishedQueue){
+        writer.println("time="+time);
+        writer.print("0: ");
+        printContentsOfQ(writer, Q);
+        printContentsOfQ(writer, finishedQueue);
+        writer.print("\n");
+        writer.print("1: ");
+        printContentsOfQ(writer, actualQueue);
+        writer.print("\n\n");
+
+    }
+
+    public static void printProcess1(PrintWriter writer, Queue Q){
+        int time = 0;
+
+        Queue actualQueue = new Queue();
+        Queue finishedQueue = new Queue();
+
+        printStatus(time,writer,Q,actualQueue,finishedQueue);
+
+        time++;
+        boolean booleanPrint;
+
+        int numberOfJobs = Q.length();
+
+        while(finishedQueue.length() != numberOfJobs ){//while Q isn't empty
+            booleanPrint = false;
+
+            //if(actualQueue.length()<1) {
+            if(!Q.isEmpty()) {
+                if (time == ((Job) Q.peek()).getArrival()) {
+                    actualQueue.enqueue(Q.dequeue());
+
+
+                    printStatus(time, writer, Q, actualQueue,finishedQueue);
+                    continue;//incase of overlap
+                }
+            }
+
+            if(!actualQueue.isEmpty())
+            if (((Job) actualQueue.peek()).getFinish() == -1) {
+                ((Job) actualQueue.peek()).computeFinishTime(time);
+            }
+            //}
+
+            if(!actualQueue.isEmpty()) {
+                for (int i = 0; i < 1; i++) {
+                    System.out.println("aaa"+time);
+                    System.out.println("BBB" + ((Job) actualQueue.peek(i)).getFinish());
+                    if (time == ((Job) actualQueue.peek(i)).getFinish()) {
+                        finishedQueue.enqueue(actualQueue.dequeue());
+                    }
+                }
+            }
+
+                //if (actualQueue.length() < 1) {
+                  //  continue;
+                //}
+
+
+
+
+
+            System.out.print("time: "+time+ "  ");
+            System.out.println(Q.length());
+
+            time++;
+
+            if(time == 40){
+                break;
+                //Q.dequeueAll();
+            }
+        }
+
+
+    }
+
+
+
     public static void main(String[] args) throws IOException{
 
         Queue Q = new Queue();
@@ -52,6 +137,29 @@ public class Simulation{
         }
 
         PrintWriter writer = new PrintWriter(args[0]+".trc");//TODO write this in try catch
+
+        writer.println("Trace file: ex1.trc");
+        writer.println(Q.length() + " Jobs:");
+        printContentsOfQ(writer,Q);
+        writer.print("\n\n");
+
+        writer.println("*****************************");
+        writer.println("1 processor:");
+        writer.println("*****************************");
+
+        printProcess1(writer,Q);
+
+
+        writer.println("*****************************");
+        writer.println("2 processors:");
+        writer.println("*****************************");
+
+
+
+
+
+        writer.close();
+
 
 //    1.  check command line arguments
 //

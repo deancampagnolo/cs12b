@@ -73,6 +73,18 @@ public class Queue implements QueueInterface {
         return head.item;
     }
 
+    public Object peek(int k) throws QueueEmptyException{
+        if(numItems == 0){
+            throw new QueueEmptyException("cannot peek() empty queue");
+        }
+        Node current = head;
+        for(int i = 0; i<k; i++){//iterates k times
+            current = current.next;
+        }
+        return current.item;
+
+    }
+
     @Override
     public void dequeueAll() throws QueueEmptyException {
         if(numItems == 0){
