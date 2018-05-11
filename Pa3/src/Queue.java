@@ -21,7 +21,7 @@ public class Queue implements QueueInterface {
 
     @Override
     public boolean isEmpty() {
-        if(numItems <= 0){
+        if(numItems == 0){
             return true;
         }
         return false;
@@ -38,7 +38,7 @@ public class Queue implements QueueInterface {
             head = new Node(newItem);
         } else {
             Node current = head;
-            for(int i = 0; i<=numItems;i++){//iterates numItems-1
+            for(int i = 0; i<numItems-1;i++){//iterates numItems-1
                 current = current.next;
             }
             current.next = new Node(newItem);
@@ -49,22 +49,42 @@ public class Queue implements QueueInterface {
 
     @Override
     public Object dequeue() throws QueueEmptyException {
-        if(numItems ==0){
+        if(numItems == 0){
             throw new QueueEmptyException("cannot dequeue() empty queue");
         }
-        Node theOne;
+        if(numItems == 1){
+            Node onlyOne = head;
+            head = null;
+            numItems--;
+            return onlyOne.item;
+        }
+        Node theOne = head;
+        head = head.next;
+        numItems--;
+        return theOne.item;
 
-
-        return null;
     }
 
     @Override
     public Object peek() throws QueueEmptyException {
-        return null;
+        if(numItems == 0){
+            throw new QueueEmptyException("cannot peek() empty queue");
+        }
+        return head.item;
     }
 
     @Override
     public void dequeueAll() throws QueueEmptyException {
+        if(numItems == 0){
+            throw new QueueEmptyException("cannot dequeueAll() empty queue");
+        }
+        System.out.println(numItems);
+        int k = length();
+        for(int i = 0; i<k; i++){
+            //System.out.println(i);
+            //System.out.println("num: "+numItems);
+            dequeue();
+        }
 
     }
 }
