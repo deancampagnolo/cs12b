@@ -33,6 +33,26 @@ public class Simulation{
 
     public static void main(String[] args) throws IOException{
 
+        Queue Q = new Queue();
+        File file = new File(args[0]);
+        try{
+            Scanner scan = new Scanner(file);
+            int m = scan.nextInt();
+            System.out.println(m);
+
+
+            for(int i = 0; i<m; i++){
+                Q.enqueue(new Job (scan.nextInt(),scan.nextInt()));
+            }
+
+            scan.close();
+
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        PrintWriter writer = new PrintWriter(args[0]+".trc");//TODO write this in try catch
+
 //    1.  check command line arguments
 //
 //    2.  open files for reading and writing
