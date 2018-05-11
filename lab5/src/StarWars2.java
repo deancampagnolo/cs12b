@@ -1,10 +1,13 @@
 class StarWars2 {
+    int counter;
     /*
      * Fight to the death between two ships.
      * On return one of the ships will be dead.
      * This method must NOT BE MODIFIED.
      */
     private void duel(SpaceShip x, SpaceShip t) {
+        counter ++;
+        System.out.println(counter);
         while (!x.isDead() && !t.isDead()) {
             x.hit(t.getWeapon());
             if (x.isDead()) {
@@ -27,7 +30,7 @@ class StarWars2 {
     private int nextTie(int i, SpaceShip[] fighters) {
         assert (i >= 0);
         while (i < fighters.length) {
-            if (fighters[i] instanceof Tie) {
+            if (fighters[i] instanceof Tie && !fighters[i].isDead()) {
                 return i;
             }
             i++;
@@ -43,7 +46,7 @@ class StarWars2 {
      */
     private int nextXWing(int i, SpaceShip[] fighters) {
         while (i < fighters.length) {
-            if (fighters[i] instanceof XWing) {
+            if (fighters[i] instanceof XWing && !fighters[i].isDead()) {
                 return i;
             }
             i++;
@@ -60,12 +63,17 @@ class StarWars2 {
      * array, and so on.
      */
     void battle(SpaceShip[] fighters) {
+        System.out.println("!!!!!!!!!"+ fighters.length);
         int g = 0;
         int e = 0;
         int goodDeaths = 0;
         int evilDeaths = 0;
 
         while (nextXWing(g, fighters) != -1 && nextTie(e, fighters) != -1) {
+            System.out.println("x: " + nextXWing(g,fighters));
+            System.out.println("t: " + nextTie(e,fighters));
+            System.out.println("g: " + g);
+            System.out.println("e: " + e);
             System.out.println("battling X-Wing #" + g + " versus Tie Fighter #" + e);
             duel(fighters[nextXWing(g, fighters)], fighters[nextTie(e, fighters)]);
             if (fighters[nextXWing(g, fighters)].isDead()) {

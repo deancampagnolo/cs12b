@@ -1,7 +1,8 @@
 class StarWars {
-
+    int counterz = 0;
     private void duel(XWing x, Tie t) {
-
+        counterz ++;
+        System.out.println(counterz);
         for (;;) {
             x.hit(t.getWeapon());
             if (x.isDead()) {
