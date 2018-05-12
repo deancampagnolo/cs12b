@@ -184,7 +184,7 @@ public class Simulation{
         for(int i = 0; i<allTheQueues.length; i++){
             allTheQueues[i] = new Queue();
         }
-
+        //
         int iterations = Q.length();
 
         for(int i = 1; i<4; i++) {
