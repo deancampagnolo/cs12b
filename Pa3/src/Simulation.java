@@ -37,60 +37,92 @@ public class Simulation{
         }
     }
 
-    public static void printStatus(int time, PrintWriter writer, Queue Q, Queue actualQueue, Queue finishedQueue){
+    public static void printStatus(int processors, int time, PrintWriter writer, Queue Q, Queue finishedQueue){
         writer.println("time="+time);
         writer.print("0: ");
         printContentsOfQ(writer, Q);
         printContentsOfQ(writer, finishedQueue);
         writer.print("\n");
-        writer.print("1: ");
-        printContentsOfQ(writer, actualQueue);
-        writer.print("\n\n");
+        for(int i = 0; i<processors; i++) {
+            writer.print((i+1)+": ");
+            printContentsOfQ(writer, allTheQueues[i]);
+            writer.print("\n\n");
+        }
 
     }
 
-    public static void printProcess1(PrintWriter writer, Queue Q){
+    public static void whichQueueGetsIt(Object theItem, int processors){
+        int lowest = processors-1;
+        for(int i = processors-1; i>=0; i--){
+            if(allTheQueues[i].length()<=allTheQueues[lowest].length()){
+                lowest = i;
+            }
+        }
+        allTheQueues[lowest].enqueue(theItem);
+    }
+
+    public static Queue printProcess(PrintWriter writer, Queue Q, int processors){
         int time = 0;
 
-        Queue actualQueue = new Queue();
+        writer.println("*****************************");
+        if(processors == 1) {
+            writer.println("1 processor:");
+        } else{
+            writer.println(processors+" processors:");
+        }
+        writer.println("*****************************");
+
+
         Queue finishedQueue = new Queue();
 
-        printStatus(time,writer,Q,actualQueue,finishedQueue);
+        printStatus(processors,time,writer,Q,finishedQueue);
 
         time++;
-        boolean booleanPrint;
+        boolean booleanPrint = false;
 
         int numberOfJobs = Q.length();
 
+
+
         while(finishedQueue.length() != numberOfJobs ){//while Q isn't empty
-            booleanPrint = false;
+
+
+            //if(!actualQueue.isEmpty()) {//if actual queue has something
+            for(int i = 0; i<allTheQueues.length;i++) {
+                //for (int i = 0; i < 1; i++) {
+                if (!allTheQueues[i].isEmpty()) {
+                    if (time == ((Job) allTheQueues[i].peek()).getFinish()) {
+                        finishedQueue.enqueue(allTheQueues[i].dequeue());
+                        booleanPrint = true;
+                    }
+                }
+            }
+
+                //}
+
+            //}
 
             //if(actualQueue.length()<1) {
             if(!Q.isEmpty()) {
                 if (time == ((Job) Q.peek()).getArrival()) {
-                    actualQueue.enqueue(Q.dequeue());
 
+                    whichQueueGetsIt(Q.dequeue(), processors);
 
-                    printStatus(time, writer, Q, actualQueue,finishedQueue);
+                    booleanPrint = true;
                     continue;//incase of overlap
                 }
             }
 
-            if(!actualQueue.isEmpty())
-            if (((Job) actualQueue.peek()).getFinish() == -1) {
-                ((Job) actualQueue.peek()).computeFinishTime(time);
-            }
-            //}
-
-            if(!actualQueue.isEmpty()) {
-                for (int i = 0; i < 1; i++) {
-                    System.out.println("aaa"+time);
-                    System.out.println("BBB" + ((Job) actualQueue.peek(i)).getFinish());
-                    if (time == ((Job) actualQueue.peek(i)).getFinish()) {
-                        finishedQueue.enqueue(actualQueue.dequeue());
+            for(int i = 0; i<allTheQueues.length;i++) {
+                if (!allTheQueues[i].isEmpty()) {
+                    if (((Job) allTheQueues[i].peek()).getFinish() == -1) {
+                        ((Job) allTheQueues[i].peek()).computeFinishTime(time);
                     }
                 }
             }
+            //}
+
+
 
                 //if (actualQueue.length() < 1) {
                   //  continue;
@@ -103,19 +135,24 @@ public class Simulation{
             System.out.print("time: "+time+ "  ");
             System.out.println(Q.length());
 
-            time++;
-
-            if(time == 40){
-                break;
-                //Q.dequeueAll();
+            if(booleanPrint) {
+                printStatus(processors,time, writer, Q,  finishedQueue);
             }
+
+            booleanPrint = false;
+            time++;
+            if(time == 100){
+                break;
+            }
+
         }
 
+        return finishedQueue;
 
     }
 
 
-
+    private static Queue[] allTheQueues;
     public static void main(String[] args) throws IOException{
 
         Queue Q = new Queue();
@@ -143,16 +180,26 @@ public class Simulation{
         printContentsOfQ(writer,Q);
         writer.print("\n\n");
 
-        writer.println("*****************************");
-        writer.println("1 processor:");
-        writer.println("*****************************");
+        allTheQueues = new Queue[Q.length()-1];
+        for(int i = 0; i<allTheQueues.length; i++){
+            allTheQueues[i] = new Queue();
+        }
 
-        printProcess1(writer,Q);
+        int iterations = Q.length();
 
+        for(int i = 1; i<4; i++) {
 
-        writer.println("*****************************");
-        writer.println("2 processors:");
-        writer.println("*****************************");
+            Q = printProcess(writer,Q, i);
+
+            if(i == 3){
+                break;
+            }
+            for(int j = 0; j<iterations; j++){
+                System.out.println("BING BONG");
+                ((Job) Q.peek(j)).resetFinishTime();
+            }
+        }
+
 
 
 
